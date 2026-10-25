@@ -1,0 +1,17 @@
+# Python dependencies of the reproducible core of the pipeline: dataset
+# construction (chat + agentic), intent classification, "as-is" adoption
+# verification (steps 7-12 / adoption_*.py). It does NOT cover the optional
+# analysis scripts (step 15+ of the old README) nor the static-quality (semgrep)
+# or plagiarism (dolos, Node.js) tools - those are out of scope for this submission.
+ijson
+pygments
+playwright
+beautifulsoup4
+lxml
+requests
+langdetect
+tiktoken
+lingua-language-detector
+pandas
+tqdm
+openai

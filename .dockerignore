@@ -1,0 +1,36 @@
+# Never in the image: credentials
+pipeline/tokens.txt
+pipeline/**/tokens.txt
+pipeline/**/.openai_key
+**/.openai_key
+tokens.txt
+
+# Never in the image: generated data (too large, not source code -
+# they are mounted/generated at runtime, not copied into the build)
+pipeline/out/
+pipeline/out_*/
+pipeline/1_07_agentic_scraper/data/
+
+# Scratch/cache, irrelevant for reproducibility
+pipeline/__pycache__/
+pipeline/*/__pycache__/
+pipeline/node_modules/
+pipeline/*/node_modules/
+**/.git/
+*.log
+*.pkl
+.DS_Store
+
+# Final data and viewers of the replication package / release: not needed to build the image
+data/
+browsers/
+dataset_release/
+replication_package/
+pipeline/browser_dataset/
+pipeline/4_01_chat_intent_classification/data/
+pipeline/4_02_agentic_intent_classification/data*/
+
+# Repository data and documents: not needed to build the image
+datasets/
+docs/
+release/

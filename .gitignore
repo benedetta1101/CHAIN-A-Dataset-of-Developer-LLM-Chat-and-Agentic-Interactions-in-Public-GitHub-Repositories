@@ -1,0 +1,19 @@
+# credentials - never commit
+pipeline/tokens.txt
+**/tokens.txt
+**/.openai_key
+# generated data and caches
+pipeline/out/
+pipeline/out_*/
+pipeline/browser_dataset*/
+pipeline/4_01_chat_intent_classification/data/
+pipeline/4_02_agentic_intent_classification/data*/
+pipeline/1_07_agentic_scraper/data/
+release/
+# the data is archived on Zenodo, not in this repository
+datasets/
+__pycache__/
+*.pyc
+*.pkl
+*.log
+.DS_Store
