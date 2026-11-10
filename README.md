@@ -1,4 +1,4 @@
-# Prompt vs. Agentic LLM Coding — Datasets and Replication Package
+# CHAIN: A Dataset of Developer–LLM Chat and Agentic Interactions in Public GitHub Repositories
 
 Two paired datasets of real-world LLM-assisted coding, built with related methodologies so
 that chat-based and agentic coding can be studied side by side, plus the pipeline that
@@ -18,7 +18,7 @@ Target languages: Python, JavaScript, TypeScript, Java.
 ## Where things are
 
 - **This repository (GitHub):** the code and the documentation - `pipeline/`, `docs/`, `Dockerfile`, `run_all.sh`.
-- **The data (Zenodo):** `[ZENODO DOI - to be filled in]`. It holds the datasets, the HTML browsers, the harness
+- **The data (Zenodo):** `10.5281/zenodo.24104601`. It holds the datasets, the HTML browsers, the harness
   files and a copy of this repository's contents. Its `assemble.sh` rebuilds the folder layout used in the
   documentation (`datasets/chat/…`, `datasets/agentic/…`); put that `datasets/` folder next to `pipeline/`.
 
