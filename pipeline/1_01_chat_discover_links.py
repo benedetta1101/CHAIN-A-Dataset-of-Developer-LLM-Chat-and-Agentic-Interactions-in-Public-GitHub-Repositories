@@ -4,11 +4,11 @@
  DevGPT EXTENSION — full collection pipeline
 ============================================================================
 Rebuilds, for 2024-2026, the kind of dataset DevGPT (Xiao et al., MSR'24)
-collected for 2023: shared ChatGPT conversations referenced on GitHub and
-Hacker News, linked to the artifact (issue / PR / commit / code file).
+collected for 2023: shared ChatGPT conversations referenced on GitHub,
+linked to the artifact (issue / PR / commit / code file).
 
 PIPELINE
-  Stage A  Discover artifacts that reference a share link  (GitHub + HN)
+  Stage A  Discover artifacts that reference a share link  (GitHub)
   Stage A* Pull artifact comments to catch links in replies (optional)
   Stage B  Fetch each conversation from chatgpt.com         (Playwright)
   Post     Normalize to a DevGPT-like schema, count tokens, write a dated
@@ -413,39 +413,6 @@ def enrich_comments(artifacts, limit=None):
         except Exception as e:
             print(f"    comment fetch failed for {a['artifact_url']}: {e}")
     return artifacts
-
-
-def collect_hackernews(since, until):
-    """Hacker News via the Algolia API. (Domain not reachable in some sandboxes.)"""
-    print("[A] Hacker News …")
-    out = []
-    base = "https://hn.algolia.com/api/v1/search_by_date"
-    for term in ("chatgpt.com/share", "chat.openai.com/share"):
-        url = (f"{base}?query={urllib.parse.quote(term)}"
-               f"&tags=(story,comment)&hitsPerPage=1000"
-               f"&numericFilters=created_at_i>{int(time.mktime(since.timetuple()))}")
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "devgpt-extend/1.0"})
-            with urllib.request.urlopen(req, timeout=40) as r:
-                data = json.load(r)
-            for h in data.get("hits", []):
-                text = f"{h.get('title','')}\n{h.get('comment_text','') or ''}\n{h.get('url','') or ''}"
-                links = SHARE_RE.findall(text)
-                if links:
-                    out.append({
-                        "source": "HackerNews",
-                        "repo": None,
-                        "artifact_url": f"https://news.ycombinator.com/item?id={h.get('objectID')}",
-                        "artifact_title": h.get("title"),
-                        "artifact_text": h.get("comment_text") or h.get("story_text"),
-                        "author": h.get("author"),
-                        "created_at": h.get("created_at"),
-                        "share_links": sorted(set(links)),
-                        "links_in_body": len(links),
-                    })
-        except Exception as e:
-            print(f"    HN term {term!r} failed: {e}")
-    return out
 
 
 # --------------------------------------------------------------------------
@@ -1109,7 +1076,6 @@ def conversation_fields(turns):
 _USER_CACHE = {}
 def user_type(login, source):
     if not login: return None
-    if source == "HackerNews": return "HackerNews"
     if login in _USER_CACHE: return _USER_CACHE[login]
     try: t = gh(f"/users/{login}", {}).get("type")
     except Exception: t = None
@@ -1117,8 +1083,7 @@ def user_type(login, source):
 
 def profile_link(login, source):
     if not login: return None
-    return (f"https://news.ycombinator.com/user?id={login}" if source == "HackerNews"
-            else f"https://github.com/{login}")
+    return f"https://github.com/{login}"
 
 def _distinctive_line(code):
     c = [l.strip() for l in (code or "").splitlines() if 25 <= len(l.strip()) <= 120]
@@ -1261,7 +1226,6 @@ def run_rich(args):
         if "issues" in args.sources: arts += collect_issues(since, until)
         if "prs" in args.sources:    arts += collect_prs(since, until)
         if "code" in args.sources:   arts += enrich_code_links(collect_code())
-        if "hn" in args.sources:     arts += collect_hackernews(since, until)
         if args.comments:            enrich_comments(arts)
         for a in arts:
             for l in a.get("share_links", []): by_link.setdefault(l, a)
@@ -1439,7 +1403,7 @@ def main():
     ap.add_argument("--until", default="2024-01-31")
     ap.add_argument("--sources", nargs="+",
                     default=["issues", "prs"],
-                    choices=["issues", "prs", "code", "hn"])
+                    choices=["issues", "prs", "code"])
     ap.add_argument("--comments", action="store_true",
                     help="also fetch artifact comments (catches links in replies)")
     ap.add_argument("--fetch", action="store_true",
@@ -1517,7 +1481,6 @@ def main():
         if "issues" in args.sources: artifacts += collect_issues(since, until)
         if "prs" in args.sources:    artifacts += collect_prs(since, until)
         if "code" in args.sources:   artifacts += enrich_code_links(collect_code())
-        if "hn" in args.sources:     artifacts += collect_hackernews(since, until)
         if args.comments:            enrich_comments(artifacts)
 
         links = dedup(artifacts)

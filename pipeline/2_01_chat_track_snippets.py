@@ -38,8 +38,7 @@ query fails; can be disabled with --no-search-repo). For GitHubIssue
 rows this search IS the only signal available, so it is much
 more frequent and the run becomes much slower.
 
-Rows whose only artifact has no usable repo (e.g. only
-HackerNews) stay untraceable.
+Rows whose only artifact has no usable repo stay untraceable.
 
 Writes out/snippet_provenance.csv (new file, does not touch snippet.csv).
 """
@@ -663,7 +662,7 @@ def track_row(row, cache, search_repo=True):
     if issue_arts:
         return track_row_issue(row, issue_arts[0], cache, search_repo)
 
-    return None  # e.g. HackerNews only, no usable repo
+    return None  # no usable repo
 
 
 FIELDNAMES = ["row_id", "conversation_url", "repo", "artifact_type", "path", "path_method", "commit_sha",

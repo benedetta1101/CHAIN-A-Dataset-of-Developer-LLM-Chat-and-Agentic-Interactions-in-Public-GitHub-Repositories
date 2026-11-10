@@ -6,8 +6,8 @@ ANNOTATED chat dataset: rows of out_ago2026/snippet.csv in the 4 target language
     found as an EXACT COPY in the repo ("as is": all mechanisms except the
     similarity of step 8); no = not found or found only by
     similarity (the 830 "modified" rows do NOT count as adopted);
-    not_verifiable = row not traceable in the repo (no GitHub
-    artifact, e.g. links found only on Hacker News). For adopted rows: also
+    not_verifiable = adoption could not be traced (no file path or pull-request
+    number is known for the cited link, as for Claude and Gemini rows). For adopted rows: also
     found_via, found_path, found_commit, found_date, days_elapsed.
   - classification of the PROMPT (classification_per_row_4lang.csv): macro and
     micro category, in the same format as the agentic dataset (without a numeric

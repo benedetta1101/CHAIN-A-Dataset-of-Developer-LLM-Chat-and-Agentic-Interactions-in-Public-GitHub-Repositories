@@ -95,7 +95,7 @@ __VIEWER_CSS__
   <div id="sidebar">
     <div id="topbar">
       <h2>Chat annotated - __LING__ (__N__ pairs)</h2>
-      <div class="note">Chat prompt&rarr;code pairs with per-row adoption and the intent of the PROMPT. "Adopted" = the code was found as an EXACT copy in the repository (as is); modified/similar matches do not count. "Not verifiable" = the row cannot be traced to a repository (e.g. link found only on Hacker News). Each conversation is shown in full (all turns, with and without code), with the message counts and token counts; only conversations whose user messages are English are included.</div>
+      <div class="note">Chat prompt&rarr;code pairs with per-row adoption and the intent of the PROMPT. "Adopted" = the code was found as an EXACT copy in the repository (as is); modified/similar matches do not count. "Not verifiable" = adoption could not be traced because no file path or pull-request number is known for the cited link (this is the case of all Claude and Gemini rows). Each conversation is shown in full (all turns, with and without code), with the message counts and token counts; only conversations whose user messages are English are included.</div>
       <div id="count"></div>
       <input id="filterBox" type="text" placeholder="Filter by repo/prompt...">
       <div class="filter-label">Provider</div><select id="fProv"><option value="">All</option></select>

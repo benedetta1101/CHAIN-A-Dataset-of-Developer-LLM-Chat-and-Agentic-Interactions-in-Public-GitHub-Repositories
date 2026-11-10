@@ -8,7 +8,7 @@
 #   ./pipeline/run_chat_pipeline.sh --refetch --discovery-timeout 300   # discovery cut at 300s
 #   ./pipeline/run_chat_pipeline.sh --refetch --tag v2             # writes EVERYTHING under different names,
 #                                                              # without touching the existing files
-#   ./pipeline/run_chat_pipeline.sh --sources issues prs hn        # discovery without code search (quick test)
+#   ./pipeline/run_chat_pipeline.sh --sources issues prs        # discovery without code search (quick test)
 #   ./pipeline/run_chat_pipeline.sh --track-snippets               # additionally, runs "as-is" adoption (steps 7-12)
 #   ./pipeline/run_chat_pipeline.sh --refetch --tag v2 --until 2026-10-12   # widens the discovery
 #                                                              # window, separate outputs
@@ -178,8 +178,8 @@ fi
 
 # --sources: which sources to search in discovery (default all). Useful for a
 # quick test: "code" (code file search) does NOT respect the date window
-# and can take hours, whereas issues/prs/hn stop at the window.
-[[ ${#SOURCES_ARGS[@]} -eq 0 ]] && SOURCES_ARGS=(issues prs code hn)
+# and can take hours, whereas issues/prs stop at the window.
+[[ ${#SOURCES_ARGS[@]} -eq 0 ]] && SOURCES_ARGS=(issues prs code)
 SINCE="${SINCE_ARG:-2023-05-01}"
 UNTIL="${UNTIL_ARG:-2026-08-10}"
 
@@ -199,7 +199,7 @@ CG_DATASET="${CG_OUT}.jsonl"
 CG_TURNS="${CG_OUT}.turns.jsonl"
 
 echo "=================================================================="
-echo "STEP 1: Link discovery (issues/PR/code/HN, all 3 providers)"
+echo "STEP 1: Link discovery (issues/PR/code, all 3 providers)"
 echo "=================================================================="
 
 if [[ -f "$CHATGPT_RAW" && $REFETCH -eq 0 ]]; then

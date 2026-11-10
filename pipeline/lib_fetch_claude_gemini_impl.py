@@ -343,8 +343,6 @@ def _gh_headers():
 def user_type(login, source):
     if not login:
         return None
-    if source == "HackerNews":
-        return "HackerNews"
     if login in _USER_CACHE:
         return _USER_CACHE[login]
     t = None
@@ -363,8 +361,7 @@ def user_type(login, source):
 def profile_link(login, source):
     if not login:
         return None
-    return (f"https://news.ycombinator.com/user?id={login}"
-            if source == "HackerNews" else f"https://github.com/{login}")
+    return f"https://github.com/{login}"
 
 
 def _distinctive_line(code):

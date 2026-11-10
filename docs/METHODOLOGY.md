@@ -11,7 +11,7 @@ names, categorical values, identifiers) is in English.
 
 | | Chat dataset | Agentic dataset |
 |---|---|---|
-| Source | ChatGPT / Claude / Gemini conversations whose public share link is cited on GitHub (issues, PRs, code files) or Hacker News | Session logs of IDE integrations (Cursor, Copilot, …) and CLI coding agents (Claude Code, …) committed to public GitHub repos |
+| Source | ChatGPT / Claude / Gemini conversations whose public share link is cited on GitHub (issues, PRs, code files) | Session logs of IDE integrations (Cursor, Copilot, …) and CLI coding agents (Claude Code, …) committed to public GitHub repos |
 | Unit | one code snippet (a fenced block of an assistant response) with the prompt that produced it | one candidate: code written by the agent (diff added lines, written file, code in prose) with the user prompt that preceded it |
 | Adoption | per snippet: found **as an exact copy** in the repo | per **session**: code of the session reached the repo |
 | Intent | label of the prompt (Tang et al. taxonomy, gpt-5-mini) | same |
@@ -35,7 +35,7 @@ TypeScript, Java.
    live services and are **not reproducible over time** (links disappear), so
    `run_chat_pipeline.sh` skips them when their output exists, unless `--refetch`.
 3. **Normalisation** (`1_03_chat_normalize.py`). One record per conversation, one schema for
-   all providers: counters, model, the GitHub/HN artifacts that
+   all providers: counters, model, the GitHub artifacts that
    cite the link (all kept, not only the first), full turns.
 4. **Snippet extraction and filters** (`1_04_extract_and_filter.py`). Extracts fenced code
    blocks from assistant turns and pairs each with its prompt. Language: declared fence
@@ -63,7 +63,7 @@ real repository. The evidence depends on the artifact that cites the link, stron
 | code file | repo, path, commit | snippet is in that file at that commit; commit reachable from the default branch; file/snippet still there today |
 | pull request | repo, PR number | snippet is in a file changed by the PR; PR merged; still there today |
 | issue only | repo | only a whole-repo code search |
-| other (e.g. Hacker News only) | — | not traceable (`not_verifiable`) |
+| Claude / Gemini link | repo only (no path, commit or PR number) | not traceable (`not_verifiable`) |
 
 If the snippet is not at the known place, GitHub code search looks in the whole repo before
 concluding it disappeared. Later steps add evidence and make the first pass stricter:

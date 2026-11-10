@@ -11,8 +11,7 @@ spaces) are normalized to the number ("1.2", "3"). A message shared
 by several rows of snippet.csv (same prompt, several blocks) propagates the
 label to all of them, via message_row_map.csv.
 
-Denominator = traceable rows of snippet_timeline.csv (HackerNews
-excluded), minus the archive repos (repo_metadata_archive.csv,
+Denominator = traceable rows of snippet_timeline.csv, minus the archive repos (repo_metadata_archive.csv,
 looks_like_personal_archive=yes) and the translated tamnd/brain-* forks (not
 marked as archive but automatic copies of tamnd/brain).
 

@@ -8,7 +8,7 @@ produced them.
 |---|---|---|
 | Source | ChatGPT / Claude / Gemini conversations whose share link is cited on GitHub  | session logs of IDE integrations (Cursor, Copilot, …) and CLI coding agents (Claude Code, …) committed to GitHub |
 | Unit | a code snippet and the prompt that produced it | a prompt → code candidate written by the agent (diff added lines, written file, code in prose) |
-| Size | 24,047 conversations · 56,600 snippets (27,962 in the 4 target languages) | 14,900 sessions · 106,936 candidates with an English prompt (25,291 in the 4 target languages) |
+| Size | 23,971 conversations · 56,552 snippets (27,943 in the 4 target languages) | 14,900 sessions · 106,936 candidates with an English prompt (25,291 in the 4 target languages) |
 | Intent label | macro/micro category of the prompt (gpt-5-mini, taxonomy of Tang et al.) | same |
 | Adoption | per snippet: found **as an exact copy** in the real repository | per session: the session's code reached the repository |
 | Extra | — | AI-coding **harness** of the repo (context files, rules, MCP, skills, hooks, …): 474 of 1,464 repos |

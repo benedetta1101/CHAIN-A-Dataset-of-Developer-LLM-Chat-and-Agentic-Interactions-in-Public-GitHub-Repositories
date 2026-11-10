@@ -17,7 +17,7 @@ Writes A SINGLE unified file, independent of the provider:
 Schema per line (one line = one conversation):
   conversation_url, provider, model_slug, n_user_messages, n_llm_messages,
   n_total_messages, artifacts (list - a conversation may be
-  referenced by several GitHub/HN artifacts, all kept here, not just
+  referenced by several GitHub artifacts, all kept here, not just
   the first), turns (full list of {role, text}).
 
 KNOWN LIMIT: for Claude/Gemini we have no artifact_url/sha/number/
